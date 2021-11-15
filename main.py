@@ -228,7 +228,6 @@ def mainAutoPhase3(player):
             #     st, end = randomMove(player)  # FAILSAFE
         #if st in board and end in board and board[st] == player and board[end] == 3:
         if jumpable(player,st,end):
-            print('yes2')
             break
     jump(player, st, end)
     draw_board()
