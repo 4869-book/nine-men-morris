@@ -25,7 +25,7 @@ def minimax(board ,depth ,isPlayer1, alpha, beta,phase ,eval):
                 possible_configs = stage23Moves(board)
     
         else:
-            #InvertedBoard คือ สลับหมากในบอร์ดจาก 1 เป็น 2 และ 2 เป็น 1 เพื่อที่จะสามารถใช้ฟังก์ชันเดียวกันได้ในการคำนวน
+            #InvertedBoard คือ สลับหมากในบอร์ดจาก 1 เป็น 2 และ 2 เป็น 1 เพื่อที่จะสามารถใช้ฟังก์ชันเดียวกันได้ในการคำนวนของอีกฝั่ง
             if phase == 1:
                 possible_configs = generateInvertedBoardList(stage1Moves(InvertedBoard(board)))
             else:
@@ -44,23 +44,23 @@ def minimax(board ,depth ,isPlayer1, alpha, beta,phase ,eval):
 
                 currentEvaluation = minimax(move, depth - 1, True, alpha, beta, phase, eval)
                
-                if currentEvaluation.evaluator < beta:
-                    beta = currentEvaluation.evaluator 
-                    finalEvaluation.board = move
+                if currentEvaluation.evaluator < beta: #ถ้าคะแนนของบอร์ดปัจจุบัน มากกว่า beta(betaเริ่มต้น = inf)
+                    beta = currentEvaluation.evaluator #beta = คะแนนของทางเดินนั้น
+                    finalEvaluation.board = move  #อัพเดตบอร์ดตัวที่มีคะเเนนมากกว่า
 
         if isPlayer1:
             
             finalEvaluation.evaluator = alpha #อัพเดตคะเเนน
         
         else:
-            finalEvaluation.evaluator = beta
+            finalEvaluation.evaluator = beta #อัพเดตคะเเนน
 
     else:
         if isPlayer1:
             
-            finalEvaluation.evaluator = eval(board, phase) #เก็บคะเเนนของ
+            finalEvaluation.evaluator = eval(board, phase) #เก็บคะเเนนของบอร์ด
         else:
-            finalEvaluation.evaluator = eval(InvertedBoard(board), phase)
+            finalEvaluation.evaluator = eval(InvertedBoard(board), phase) #เก็บคะเเนนของบอร์ด
     
     return finalEvaluation
 
