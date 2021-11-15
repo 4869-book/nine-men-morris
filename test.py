@@ -28,6 +28,6 @@ board2 = [
     1,          3,          1,           
     ]
 
-board3 = [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
-
-print(board_to_point(board3,depth,1,alpha,beta,1,numberOfPiecesEval))
+board3 = [1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+print(minimax(board3,depth,False,alpha,beta,3,numberOfPiecesEval).board)
+# print(board_to_point(board3,depth,False,alpha,beta,1,numberOfPiecesEval))

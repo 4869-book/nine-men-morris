@@ -3,7 +3,7 @@ import sys
 from PIL.ImageChops import screen
 from pygame.locals import *
 from ai_play import board_to_point, minimax
-from eval import numberOfPiecesEval, AdvancedHeuristic , moveableEval
+from eval import numberOfPiecesEval
 from config import *
 from logic import *
 from ai import *
@@ -19,7 +19,7 @@ import random
 waittime = 0
 
 depth = 3
-player = 2
+isPlayer1 = False
 alpha = float('-inf')
 beta = float('inf')
 phase = 1
@@ -76,7 +76,7 @@ def mainAutoPhase1():
 
                 else:
 
-                    cdn,dele = board_to_point(board,depth,player,alpha,beta,1,numberOfPiecesEval) #using Book's AI
+                    cdn,dele = board_to_point(board,depth,isPlayer1,alpha,beta,1,numberOfPiecesEval) #using Book's AI
                     
 
                 if placeable(i, cdn):  # only check if placeable
@@ -140,7 +140,7 @@ def mainAutoPhase2():
                 else:
 
                     # using algorithm
-                    st,end,dele = board_to_point(board,depth,player,alpha,beta,2,numberOfPiecesEval)
+                    st,end,dele = board_to_point(board,depth,isPlayer1,alpha,beta,2,numberOfPiecesEval)
                     print(st,end,dele)
 
                     if end == -1 or st == -1 or (end in movablePawn[st] == False):
@@ -220,7 +220,7 @@ def mainAutoPhase3(player):
              print(player,st,end)
         else:
             # using algorithm
-            st,end,dele = board_to_point(board,depth,player,alpha,beta,3,numberOfPiecesEval)
+            st,end,dele = board_to_point(board,depth,isPlayer1,alpha,beta,3,numberOfPiecesEval)
             print(player,st,end,dele)
 
             # if end == -1:
