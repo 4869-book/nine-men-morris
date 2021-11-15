@@ -184,3 +184,39 @@ def stage23Moves(board):
 	else:
 		return stage2Moves(board)
 
+def getPossibleMillCount(board, player):
+	count = 0
+
+	for i in range(len(board)):
+		if (board[i] == 3):
+			if checkMillFormation(i, board, player):
+				count += 1
+	return count
+
+def potentialMillInFormation(position, board, player):
+
+	adjacent_list = moveableLocation(position)
+
+	for i in adjacent_list:
+		if (board[i] == player) and (not checkMillFormation(position, board, player)):
+			return True
+	return False
+
+def getPiecesInPotentialMillFormation(board, player):
+
+	count = 0
+
+	for i in range(len(board)):
+		if (board[i] == player):
+			adjacent_list = moveableLocation(i)
+			for pos in adjacent_list:
+				if (player == 1):
+					if (board[pos] == 2):
+						board[i] = 2
+						if isCloseMill(i, board):
+							count += 1
+						board[i] = player
+				else:
+					if (board[pos] == 1 and potentialMillInFormation(pos, board, 1)):
+						count += 1
+	return count

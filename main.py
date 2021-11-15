@@ -3,7 +3,7 @@ import sys
 from PIL.ImageChops import screen
 from pygame.locals import *
 from ai_play import board_to_point, minimax
-from eval import numberOfPiecesEval
+from eval import numberOfPiecesEval, AdvancedHeuristic , moveableEval
 from config import *
 from logic import *
 from ai import *
@@ -77,19 +77,29 @@ def mainAutoPhase1():
                 else:
 
                     cdn,dele = board_to_point(board,depth,player,alpha,beta,1,numberOfPiecesEval) #using Book's AI
+                    
 
                 if placeable(i, cdn):  # only check if placeable
                     break
 
             placePawn(i + 1, cdn)
+            draw_board()
+            pygame.display.update()
+            time.sleep(waittime)
 
             if checkMill(i + 1, cdn) :  # after placing, check if a mill is formed
                 if i == 0:
                     #autoDelete(2)  # using random ai
                     deletePawn(2, findBestMill(board, 2))
+                    draw_board()
+                    pygame.display.update()
+                    time.sleep(waittime)
                 else:
                     if(dele!=None):
                         targetedDelete(1, dele)  # using algorithm
+                        draw_board()
+                        pygame.display.update()
+                        time.sleep(waittime)
 
     print("This is the end of phase 1")
 
@@ -110,12 +120,13 @@ def mainAutoPhase2():
 
         draw_board()
         pygame.display.update()
+        time.sleep(waittime)
 
         for i in range(2):
             # print("Player " + str(i+1) + " round")
-            if player1Phase3Flag:
-                player1Phase3Flag = False
-                continue
+            # if player1Phase3Flag:
+            #     player1Phase3Flag = False
+            #     continue
             draw_board()
             pygame.display.update()
             time.sleep(waittime)
@@ -124,38 +135,50 @@ def mainAutoPhase2():
                 if i == 0:
                     #st, end = randomMove(i + 1)  # using random ai
                     st, end = findBestMove(board, i+1, 2)
+                    print(1)
+                    print(board)
                 else:
 
                     # using algorithm
                     st,end,dele = board_to_point(board,depth,player,alpha,beta,2,numberOfPiecesEval)
+                    print(st,end,dele)
 
                     if end == -1 or st == -1 or (end in movablePawn[st] == False):
                         print('FAILSAFE ACTIVE')
                         # FAILSAFE WHEN EITHER IS INVALID
                         st, end = randomMove(i + 1)
+                        
 
                 if movable(i + 1, st, end):
                     break
 
             move(i + 1, st, end)
+            draw_board()
+            pygame.display.update()
+            time.sleep(waittime)
 
-            if checkMill(i + 1, end) and dele!=None:
+            if checkMill(i + 1, end):
                 if i == 0:
                     #autoDelete(2)  # using random ai
                     deletePawn(2, findBestMill(board, 2))
+                    draw_board()
+                    pygame.display.update()
+                    time.sleep(waittime)
                 else:
                     if(dele!=None):
                         targetedDelete(1, dele)  # using algorithm
-
-            if phase3StartFlag and phase3EndFlag == False:
+                        draw_board()
+                        pygame.display.update()
+                        time.sleep(waittime)
+            print(flag3phase())
+            print(phase3EndFlag)
+            if flag3phase():
                 if i == 0:
                     mainAutoPhase3(2)
-                    phase3EndFlag = True
                     break
                 else:
                     mainAutoPhase3(1)
-                    phase3EndFlag = True
-                    player1Phase3Flag = True
+                    break
             elif playerPawn[1] == 2 or playerPawn[2] == 2:
                 break
 
@@ -190,26 +213,40 @@ def mainAutoPhase3(player):
     pygame.display.update()
     time.sleep(waittime)
     while (True):
+        print('phase3',player)
         if player == 1:
             #st, end = randomJump(player)  # using 
-             st, end = findBestMove(board, 2, 2)
+             st, end = findBestMove(board, 1, 3)
+             print(player,st,end)
         else:
             # using algorithm
             st,end,dele = board_to_point(board,depth,player,alpha,beta,3,numberOfPiecesEval)
+            print(player,st,end,dele)
 
-            if end == -1:
-                print('FAILSAFE ACTIVE')
-                st, end = randomMove(player)  # FAILSAFE
-        if st in board and end in board and board[st] == player and board[end] == 3:
+            # if end == -1:
+            #     print('FAILSAFE ACTIVE')
+            #     st, end = randomMove(player)  # FAILSAFE
+        #if st in board and end in board and board[st] == player and board[end] == 3:
+        if jumpable(player,st,end):
+            print('yes2')
             break
     jump(player, st, end)
-    if checkMill(player, end) and dele!=None:
+    draw_board()
+    pygame.display.update()
+    time.sleep(waittime)
+    if checkMill(player, end):
         if player == 1:
             #autoDelete(2)  # using randomness
-            deletePawn(2, findBestMill(board, 2)) 
+            deletePawn(2, findBestMill(board, 2))
+            draw_board()
+            pygame.display.update()
+            time.sleep(waittime)
         else:
             if(dele!=None):
                 targetedDelete(1, dele)  # using algorithm
+                draw_board()
+                pygame.display.update()
+                time.sleep(waittime)
 
 
 def main():

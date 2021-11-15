@@ -184,6 +184,7 @@ def placePawn(player, cdn):
 
 # เช็คการเดิน phase 2 ว่าถูกต้องมั้ย
 def move(player, st, end):
+    print('move')
     while (True):
         if end in movablePawn[st] and board[end] == 3 and board[st] == player:
             movePawn(player, st, end)
@@ -254,6 +255,8 @@ def deletePawn(player, cdn):
     else:
         return False
 
+def flag3phase():
+    return phase3StartFlag
 
 def autoDelete(player):
     print("You connected 3 straight point and can remove one of oppoents pawn!")
@@ -326,6 +329,7 @@ def deletable(player, cdn):
 
 # เช็คว่ากระโดดได้มั้ยใน phase 3
 def jumpable(player, st, end):
+    print('jump')
     if board[st] == player and board[end] == 3:
         return True
     else:

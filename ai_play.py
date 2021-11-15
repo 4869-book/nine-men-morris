@@ -7,7 +7,7 @@ class evaluator():
         self.evaluator = 0
         self.board = []
 
-def minimax(board ,depth ,player, alpha, beta,phase ,eval):
+def minimax(board ,depth ,player, alpha, beta,phase ,eval): 
 
     finalEvaluation = evaluator()
 
