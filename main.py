@@ -116,7 +116,7 @@ def mainAutoPhase2():
 
     while (True):
         round += 1
-        # print("round " + str(round))
+        print("round " + str(round))
 
         draw_board()
         pygame.display.update()
