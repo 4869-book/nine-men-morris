@@ -1,5 +1,7 @@
 from logic2ai import*
 import copy
+
+import random
 states_reached = 0
 
 class evaluator():
@@ -10,10 +12,7 @@ class evaluator():
 def minimax(board ,depth ,isPlayer1, alpha, beta,phase ,eval): 
 
     finalEvaluation = evaluator()
-
-    global states_reached
-    states_reached += 1
-
+    
     if depth != 0:
         currentEvaluation = evaluator()
 
@@ -39,14 +38,17 @@ def minimax(board ,depth ,isPlayer1, alpha, beta,phase ,eval):
                 if currentEvaluation.evaluator > alpha: #ถ้าคะแนนของบอร์ดปัจจุบัน มากกว่า alpha(alphaเริ่มต้น = -inf)
                     alpha = currentEvaluation.evaluator #alpha = คะแนนของทางเดินนั้น
                     finalEvaluation.board = move  #อัพเดตบอร์ดตัวที่มีคะเเนนมากกว่า
+            
+
 
             else:
 
                 currentEvaluation = minimax(move, depth - 1, True, alpha, beta, phase, eval)
                
-                if currentEvaluation.evaluator < beta: #ถ้าคะแนนของบอร์ดปัจจุบัน มากกว่า beta(betaเริ่มต้น = inf)
+                if currentEvaluation.evaluator < beta: #ถ้าคะแนนของบอร์ดปัจจุบัน น้อยกว่า beta(betaเริ่มต้น = +inf)
                     beta = currentEvaluation.evaluator #beta = คะแนนของทางเดินนั้น
                     finalEvaluation.board = move  #อัพเดตบอร์ดตัวที่มีคะเเนนมากกว่า
+                
 
         if isPlayer1:
             

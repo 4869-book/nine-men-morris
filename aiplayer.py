@@ -241,10 +241,10 @@ def findBestMove(board, player, phase):
                     bestVal = val
                     bestMove = i
                 # change by random to avoid loop (same move)
-                if val == bestVal:
-                    if random.randint(0, 2) == 1:
-                        bestVal = val
-                        bestMove = i
+                # if val == bestVal:
+                #     if random.randint(0, 2) == 1:
+                #         bestVal = val
+                #         bestMove = i
         # phase 2
         elif phase == 2:
             if b[i] == player:
@@ -265,11 +265,11 @@ def findBestMove(board, player, phase):
                             bestMove = i
                             bestDest = movablePawn[i][j]
                         # change by random to avoid loop (same move)
-                        if val == bestVal:
-                            if random.randint(0, 2) == 1:
-                                bestVal = val
-                                bestMove = i
-                                bestDest = movablePawn[i][j]
+                        # if val == bestVal:
+                        #     if random.randint(0, 2) == 1:
+                        #         bestVal = val
+                        #         bestMove = i
+                        #         bestDest = movablePawn[i][j]
         # phase 3
         else:
             if b[i] == player:

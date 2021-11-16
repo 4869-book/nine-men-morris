@@ -1,9 +1,7 @@
 from logic import *
 from logic2ai import *
 
-board1 = [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1]
-
-
+#ให้คะแนนโดยการนับจำนวนหมากทั้งหมดของแต่ละฝั่ง
 def numberOfPiecesEval(board, phase):
     player1Pawn = pawnInBoard(board, 1)
     player2Pawn = pawnInBoard(board, 2)

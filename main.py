@@ -171,7 +171,7 @@ def mainAutoPhase2():
                         pygame.display.update()
                         time.sleep(waittime)
             print(flag3phase())
-            print(phase3EndFlag)
+            print(phase3EndFlag,playerPawn[1],playerPawn[2])
             if flag3phase():
                 if i == 0:
                     mainAutoPhase3(2)
