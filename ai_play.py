@@ -38,7 +38,7 @@ def minimax(board ,depth ,isPlayer1, alpha, beta,phase ,eval):
                 if currentEvaluation.evaluator > alpha: #ถ้าคะแนนของบอร์ดปัจจุบัน มากกว่า alpha(alphaเริ่มต้น = -inf)
                     alpha = currentEvaluation.evaluator #alpha = คะแนนของทางเดินนั้น
                     finalEvaluation.board = move  #อัพเดตบอร์ดตัวที่มีคะเเนนมากกว่า
-            
+                
 
 
             else:
